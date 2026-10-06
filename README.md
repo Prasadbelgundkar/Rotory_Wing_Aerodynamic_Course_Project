@@ -1,8 +1,11 @@
-# Tiltrotor BEMT + Mission Planner — Milestone 1 & 2 Codebase
+# Rotary-Wing Modelling Project, Team 6 — Tiltrotor BEMT + Mission Planner (Milestones 1 & 2)
 
 Modular Python implementation of a BEMT rotor-performance tool, a 6-DOF trim solver, a conversion-corridor
 mapper and a time-stepped Mission Planner, used to evaluate the team's tiltrotor across hover, conversion and
 airplane-mode flight.
+
+> **TAs / evaluators: start with [`EVALUATION_GUIDE.md`](EVALUATION_GUIDE.md)** — setup, a 5-minute check,
+> full reproduction commands, and where the figures and tables for every report section come from.
 
 > **Bonus — 3D transition simulation.** The file to run is
 > **`bonus_simulation_transition_analysis/run_transition_simulation.py`**; it writes an interactive 3D animation
@@ -15,6 +18,7 @@ airplane-mode flight.
 
 ```
 .
+├── EVALUATION_GUIDE.md     how to evaluate: setup, quick check, reproduction, report-section map
 ├── src/                    solver library (imported by every script)
 │   ├── *.py                Milestone 1: ISA, airfoil, rotor, axial BEMT, mission planner v1, sizing
 │   ├── data/               Knight & Hefner validation data, airfoil tables
@@ -33,7 +37,7 @@ airplane-mode flight.
 ├── examples/               short usage examples of the solver API
 ├── gui_app/                optional Streamlit GUI (uses src/)
 ├── docs/
-│   ├── milestone1/         assignment brief, formulas, flow diagrams, validation/sizing reports
+│   ├── milestone1/         formulas, flow diagrams, validation/sizing reports
 │   │   └── reports/        Milestone 1 analysis write-ups (Sections 6–7)
 │   └── milestone2/         Milestone 2 algorithms and logic flow
 ├── requirements.txt
@@ -120,9 +124,6 @@ export M2_ROTOR=M1              # bash
 | `demo_corridor_map.py` | 7.1, 7.2 | 13 × 21 speed–nacelle map (6-DOF trim at every point), constraint fields |
 | `demo_transition_mission.py` | 8.1, 8.2 | outbound (hover → airplane) and inbound (airplane → hover) Mission Planner v2 runs |
 | `compare_m1_m2.py` | 9.1, 9.2 | M1 vs M2 power / stall / envelope comparison, rotor-variant trade table |
-
-Early-draft demos (`demo_control_sweep.py`, `demo_azimuthal_loading.py`, `demo_transition_sweep.py`,
-`demo_full_mission.py`) still run and write to `outputs/m2/`, but are superseded by the scripts above.
 
 ### Modules (`src/m2/`)
 
@@ -214,9 +215,14 @@ Section 5.1 schematic. Plot axes: x forward, y left, z up. The rotor variant fol
 
 ```bash
 python src/validation.py                  # validation vs Knight & Hefner (2-, 3- and 4-blade data)
+python src/aircraft_sizing.py             # sizing / constraint analysis
 python scripts/m1/plot_axial_flight.py    # axial forward-flight performance
 streamlit run gui_app/app.py              # interactive GUI
 ```
+
+The full list of Milestone 1 commands, in report-section order, is in
+[`EVALUATION_GUIDE.md`](EVALUATION_GUIDE.md#milestone-1--one-script-per-figure-group). Run them from the
+repository root: some scripts write to `outputs/m1/` relative to it.
 
 Milestone 1 assumptions: no dynamic stall, no unsteady aerodynamics, no blade flexibility; the linear Cl–α model
 has no physical post-stall behaviour; Prandtl–Glauert frozen above M = 0.7.
