@@ -4,6 +4,11 @@ Modular Python implementation of a BEMT rotor-performance tool, a 6-DOF trim sol
 mapper and a time-stepped Mission Planner, used to evaluate the team's tiltrotor across hover, conversion and
 airplane-mode flight.
 
+> **Run everything at once (Milestone 2):** `python run_all_m2.py` from the repository root generates every
+> Milestone 2 plot and table for both rotor variants, plus the bonus 3D transition simulation, in one go
+> (≈ 20 min). Plots are saved to `outputs/m2/rotor_refined/`, `outputs/m2/rotor_M1/` and
+> `bonus_simulation_transition_analysis/output/`.
+
 > **TAs / evaluators: start with [`EVALUATION_GUIDE.md`](EVALUATION_GUIDE.md)** — setup, a 5-minute check,
 > full reproduction commands, and where the figures and tables for every report section come from.
 
