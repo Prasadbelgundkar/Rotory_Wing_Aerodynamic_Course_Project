@@ -6,3 +6,4 @@ pytest>=7.0
 # bonus 3D transition simulation (bonus_simulation_transition_analysis/)
 plotly>=5.15
 pandas>=1.5
+numba          # free-vortex wake solver (src/tandem_fvw.py); only needed to regenerate the FVW maps
