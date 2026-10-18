@@ -232,6 +232,7 @@ def run_edgewise_bemt(
     tol: float = 1e-4,
     rotation: str = 'ccw',
     inflow: str = 'annular_glauert',
+    external_inflow: Optional[np.ndarray] = None,
 ) -> EdgewiseRotorResult:
     """Azimuth-resolved BEMT with collective/cyclic pitch and nonuniform inflow.
 
@@ -242,6 +243,13 @@ def run_edgewise_bemt(
     sense as the induced flow (climb-like); see trim_solver.shaft_angle_of_attack.
 
     r_hub_body: hub position from the CG in body axes (for the r x F moment).
+
+    external_inflow: optional (n_r, n_psi) array [m/s] of extra through-disk
+    velocity imposed by another rotor's wake (tandem interference), positive
+    in the same sense as the induced flow, on this rotor's own (r, psi) grid
+    (psi measured in the blade's direction of rotation from downstream).
+    It is added to U_P like a local climb velocity and its annulus mean enters
+    the momentum balance. None (default) leaves the solver unchanged.
     """
     if rotation not in ('ccw', 'cw'):
         raise ValueError("rotation must be 'ccw' or 'cw'")
@@ -268,6 +276,18 @@ def run_edgewise_bemt(
     mu = V_x / OR
     lam_c = V_c / OR
 
+    if external_inflow is not None:
+        dv_ext = np.asarray(external_inflow, float)
+        if dv_ext.shape != (n_r, n_psi):
+            raise ValueError(f"external_inflow must have shape {(n_r, n_psi)}, got {dv_ext.shape}")
+        if not np.all(np.isfinite(dv_ext)):
+            raise ValueError("external_inflow contains non-finite values")
+        V_c_loc = V_c + dv_ext                      # (n_r, n_psi)
+        V_c_ann = V_c + dv_ext.mean(axis=1)         # (n_r,) annulus mean for momentum
+    else:
+        V_c_loc = V_c
+        V_c_ann = V_c
+
     theta = twist + theta0_rad + theta1c_rad * cpsi + theta1s_rad * spsi
     U_T_signed = omega_rad_s * rc + V_x * spsi
     reverse = U_T_signed < 0.0
@@ -276,7 +296,7 @@ def run_edgewise_bemt(
 
     def loads(v0, K, full=False):
         """Sectional loads for annulus-mean induced velocity v0 (n_r,)."""
-        U_P = V_c + v0[:, None] * (1.0 + K * cos_shape)
+        U_P = V_c_loc + v0[:, None] * (1.0 + K * cos_shape)
         U2 = U_T_abs ** 2 + U_P ** 2
         phi = np.arctan2(U_P, U_T_abs)
         alpha_eff = np.where(reverse, -(theta + phi), theta - phi)
@@ -296,9 +316,9 @@ def run_edgewise_bemt(
 
     def annulus_residual(v0, K):
         dT_bet = loads(v0, K).mean(axis=1)
-        phi_m = np.arctan2(V_c + v0, omega_rad_s * r)
+        phi_m = np.arctan2(V_c_ann + v0, omega_rad_s * r)
         F = _tip_loss(B, R, r, phi_m)
-        dT_mom = 4.0 * np.pi * r * rho * F * v0 * np.sqrt(V_x ** 2 + (V_c + v0) ** 2)
+        dT_mom = 4.0 * np.pi * r * rho * F * v0 * np.sqrt(V_x ** 2 + (V_c_ann + v0) ** 2)
         return dT_bet - dT_mom
 
     # geometric scan grid for bracketing (both signs, like M1's scan)
