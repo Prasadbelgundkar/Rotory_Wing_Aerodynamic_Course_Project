@@ -1,0 +1,31 @@
+# Digitised from Dingeldein, NACA TN-3236 (1954), Figure 6 'Level-flight performance with tandem rotor',
+# CT = 0.0034, Omega*R = 500 ft/s, 2 x 2-blade rotors, 15 ft dia, sigma 0.054, untwisted NACA 0012, shafts 1.03 D apart, f = 2 ft^2.
+# Digitised 18 Oct 2026 from the 300 dpi scan of the uploaded PDF (page 10 of the report). Pixel calibration on gridlines:
+# mu = (px - 48)/2593.3, hp = (687 - py)/13.19 . Estimated reading uncertainty about +/-0.005 in mu and +/-0.5 hp.
+# 'single_rotor' = one rotor removed (circles); front/rear = squares/triangles; tandem_total = diamonds.
+series,mu,power_hp,power_kW
+tandem_total,0.000,34.50,25.724
+tandem_total,0.074,38.44,28.663
+tandem_total,0.109,34.12,25.441
+tandem_total,0.145,32.07,23.914
+tandem_total,0.189,30.78,22.953
+tandem_total,0.241,34.19,25.497
+tandem_total,0.295,34.04,25.384
+rear_rotor,0.075,23.96,17.865
+rear_rotor,0.110,22.67,16.904
+rear_rotor,0.145,21.00,15.660
+rear_rotor,0.190,19.41,14.473
+rear_rotor,0.241,19.86,14.812
+rear_rotor,0.295,21.83,16.282
+front_rotor,0.076,14.71,10.968
+front_rotor,0.109,11.60,8.650
+front_rotor,0.145,11.07,8.254
+front_rotor,0.190,12.13,9.046
+front_rotor,0.241,14.48,10.798
+front_rotor,0.295,14.25,10.629
+single_rotor,0.000,20.62,15.378
+single_rotor,0.109,13.42,10.007
+single_rotor,0.145,11.90,8.876
+single_rotor,0.190,11.37,8.480
+single_rotor,0.241,15.24,11.364
+single_rotor,0.295,15.09,11.251

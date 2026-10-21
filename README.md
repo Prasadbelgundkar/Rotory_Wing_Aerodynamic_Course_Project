@@ -1,4 +1,9 @@
-# Rotary-Wing Modelling Project, Team 6 — Tiltrotor BEMT + Mission Planner (Milestones 1 & 2)
+# Rotary-Wing Modelling Project, Team 6 — Tiltrotor BEMT + Mission Planner (Milestones 1 & 2) + Modeling Project
+
+> **Modeling Project (tandem-rotor interference) — TAs start here:** `python run_all_mp.py` from the
+> repository root regenerates every figure, table and validation result in the Modeling Project deck
+> (≈ 3 min) into `outputs/mp/`. The deck, the conceptual-questions document, and a slide-by-slide map of
+> the outputs are in [`modeling_project/`](modeling_project/README.md).
 
 Modular Python implementation of a BEMT rotor-performance tool, a 6-DOF trim solver, a conversion-corridor
 mapper and a time-stepped Mission Planner, used to evaluate the team's tiltrotor across hover, conversion and
@@ -24,20 +29,25 @@ airplane-mode flight.
 ```
 .
 ├── EVALUATION_GUIDE.md     how to evaluate: setup, quick check, reproduction, report-section map
+├── run_all_mp.py           Modeling Project: ONE command for every deck figure and validation result
+├── modeling_project/       Modeling Project: slide deck, conceptual questions, docs, TA guide (README.md)
 ├── src/                    solver library (imported by every script)
 │   ├── *.py                Milestone 1: ISA, airfoil, rotor, axial BEMT, mission planner v1, sizing
-│   ├── data/               Knight & Hefner validation data, airfoil tables
+│   ├── tandem_*.py         Modeling Project: tandem interference (hover, forward flight, free-vortex wake)
+│   ├── data/               Knight & Hefner and Dingeldein TN-3236 validation data, airfoil tables, cached FVW runs
 │   └── m2/                 Milestone 2: edgewise BEMT, frames, airframe aero, 6-DOF trim, corridor, mission v2
 ├── scripts/
 │   ├── m1/                 Milestone 1 figure scripts (hover, axial flight, design study, mission v1)
 │   │   └── mission_tests/  Mission Planner v1 evaluation cases
-│   └── m2/                 Milestone 2 figure/table scripts (run_all_m2.py runs everything)
+│   ├── m2/                 Milestone 2 figure/table scripts (run_all_m2.py runs everything)
+│   └── mp/                 Modeling Project figure scripts (run_all_mp.py runs everything)
 ├── bonus_simulation_transition_analysis/
 │   ├── run_transition_simulation.py   ← RUN THIS for the bonus 3D transition simulation
 │   └── output/             generated interactive HTML animations (open in a web browser)
 ├── outputs/
 │   ├── m1/                 Milestone 1 figures
-│   └── m2/rotor_<variant>/ Milestone 2 figures, tables and FIGURES.md index per rotor variant
+│   ├── m2/rotor_<variant>/ Milestone 2 figures, tables and FIGURES.md index per rotor variant
+│   └── mp/                 Modeling Project figures and tables
 ├── tests/                  pytest suite (M1 solver + M2 regression tests)
 ├── examples/               short usage examples of the solver API
 ├── gui_app/                optional Streamlit GUI (uses src/)
