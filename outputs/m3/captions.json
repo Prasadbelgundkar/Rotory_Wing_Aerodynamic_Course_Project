@@ -1,0 +1,42 @@
+{
+ "m3_1p1_final_schematic": {
+  "section": "1.1",
+  "caption": "Top and side views of the final design drawn from src/m2/aircraft_input_m2.py: proprotors (R = 3.8 m) at the wing-tip conversion pivots in helicopter and airplane mode, tilting nacelles with engine and proprotor gearbox, interconnect drive shaft, wing with flaperons and fuel tanks, fuselage with cockpit and payload cabin, nose and main landing gear, horizontal tail with elevator, vertical tail with rudder, CG in both modes; the table lists every mass item and its location. Dimensions in metres. Cabin, cockpit, tank and gear outlines are layout sketches consistent with the mass-item centroids (they do not enter the analysis)."
+ },
+ "m3_3p1_specific_range": {
+  "section": "3.1",
+  "caption": "Fuel burned per km (SFC 280 g/kWh x trimmed power / TAS, no wind) vs true airspeed in airplane mode at 5000 m ISA+15, 6800 kg (mid-cruise of the design mission), for 250 / 300 / 350 RPM; crosses along the bottom = speeds with no feasible trim (collective saturation at 65 deg, wing stall at 55 m/s, or power at 115 m/s / 350 RPM). final design: rotor 'refined' (twist 12 deg root, -30 deg/R), 2 x GE CT7-8A; 6-DOF trim with rigid-disk azimuth-resolved BEMT (annular-Glauert inflow + K-factor, linear airfoil, stall 14 deg), no rotor-wake/wing interference or hover download."
+ },
+ "m3_2p2_workflow": {
+  "section": "2.2",
+  "caption": "Flow of information between the modules used for the final aircraft and mission analysis, with the milestone each module originates from (blue M1, green M2, orange M3 additions). At every mission time step the planner passes the flight state to the 6-DOF trim, which calls the rotor and airframe models with the ISA atmosphere and returns controls, power required and limit flags; power available and fuel burn come from the propulsion model."
+ },
+ "m3_4p2_mission_time_history": {
+  "section": "4.2",
+  "caption": "Hot-and-high 1000 km passenger transport: altitude, true airspeed and ground speed with cumulative ground distance, gross mass and fuel remaining (dashed: 450 kg reserve), nacelle angle and rotor RPM, power required vs available (take-off rating in helicopter mode and conversion, max-continuous 86 % in airplane mode), controls and attitude, rotor stall and tip-Mach indicators, wing-stall and power margins. Shaded bands and numbers = mission segments. Pads 1500 m ISA+15, 5 m/s headwind aloft, calm at the pads; final design: rotor 'refined' (twist 12 deg root, -30 deg/R), 2 x GE CT7-8A; 6-DOF trim with rigid-disk azimuth-resolved BEMT (annular-Glauert inflow + K-factor, linear airfoil, stall 14 deg), no rotor-wake/wing interference or hover download."
+ },
+ "m3_4p2_terminal_phases_zoom": {
+  "section": "4.2",
+  "caption": "Zoom on the helicopter-mode, conversion and reconversion phases of the design mission: altitude and airspeed, nacelle angle and RPM, power required vs available, rotor vs wing lift share and stalled rotor area (x10). Same run as the full time history; final design: rotor 'refined' (twist 12 deg root, -30 deg/R), 2 x GE CT7-8A; 6-DOF trim with rigid-disk azimuth-resolved BEMT (annular-Glauert inflow + K-factor, linear airfoil, stall 14 deg), no rotor-wake/wing interference or hover download."
+ },
+ "m3_4p3_constraint_utilisation": {
+  "section": "4.3",
+  "caption": "Every feasibility limit of Mission Planner v2 expressed as the fraction of its allowable value used: power required / 95 % of available (5 % margin), stalled rotor area / 5 %, advancing-tip Mach / 0.85, reverse-flow area / 3 %, |wing alpha| / 15 deg (V > 10 m/s), collective / 65 deg, max normalized pilot stick input, nacelle rate / 8 deg/s, fraction of usable fuel above the reserve burned. The highest curve at any time is the active constraint. final design: rotor 'refined' (twist 12 deg root, -30 deg/R), 2 x GE CT7-8A; 6-DOF trim with rigid-disk azimuth-resolved BEMT (annular-Glauert inflow + K-factor, linear airfoil, stall 14 deg), no rotor-wake/wing interference or hover download."
+ },
+ "m3_4p4_power_breakdown": {
+  "section": "4.4",
+  "caption": "Mean and peak power required and minimum power available in each segment of the design mission (left) and fuel burned per segment (right, log scale). final design: rotor 'refined' (twist 12 deg root, -30 deg/R), 2 x GE CT7-8A; 6-DOF trim with rigid-disk azimuth-resolved BEMT (annular-Glauert inflow + K-factor, linear airfoil, stall 14 deg), no rotor-wake/wing interference or hover download."
+ },
+ "m3_4_paths_on_corridor": {
+  "section": "3.2",
+  "caption": "Airspeed-nacelle trajectories flown in the design mission (accelerating / climbing conversion, decelerating / descending reconversion) over the Milestone 2 steady-flight corridor map (2000 m ISA, density 1.007 kg/m3, vs 1.004 kg/m3 at the 1500 m ISA+15 pads). Red crosses would mark infeasible steps."
+ },
+ "m3_3p3_operating_limits": {
+  "section": "3.3",
+  "caption": "Left: maximum out-of-ground-effect hover mass vs pressure altitude for ISA and ISA+15 (550 RPM, take-off rating, feasible 6-DOF trim with >= 5 % power margin and <= 5 % stalled rotor area); the crossing with MTOW gives the hover ceiling. Right: maximum level airplane-mode speed at 7200 kg, 420 RPM, for max-continuous and take-off ratings (sea level ISA, ISA+15 above). final design: rotor 'refined' (twist 12 deg root, -30 deg/R), 2 x GE CT7-8A; 6-DOF trim with rigid-disk azimuth-resolved BEMT (annular-Glauert inflow + K-factor, linear airfoil, stall 14 deg), no rotor-wake/wing interference or hover download."
+ },
+ "m3_3p4_comparison": {
+  "section": "3.4",
+  "caption": "Disk loading W/(2A), wing loading W/S, installed power loading MTOW / total take-off power, useful-load fraction 1 - OEW/MTOW and maximum speed of the final design vs the Bell XV-15, Leonardo AW609 and Bell Boeing V-22 (published data, sources in m3_3p4_comparison.md; AW609 wing area not published in the cited source). Our max speed: 6-DOF trim, take-off rating, level flight."
+ }
+}
