@@ -1,0 +1,262 @@
+{
+ "hover": [
+  {
+   "case": "Sea level ISA",
+   "h": 0.0,
+   "dT": 0.0,
+   "rho": 1.225000018124288,
+   "rpm": 550.0,
+   "coll": 22.869611571757535,
+   "T_kN": 35.30394000266112,
+   "P_kW": 1762.2638498518356,
+   "Pav_kW": 3596.700053214388,
+   "margin": 51.003313487959836,
+   "FM": 0.714088845924225,
+   "PL": 4.085653802979246,
+   "tipM": 0.6454377490110661,
+   "stall": 0.0,
+   "sm": 3.3502583329315434,
+   "fuel_kg_h": 493.43387795851396,
+   "feasible": true
+  },
+  {
+   "case": "Design pads 1500 m ISA+15",
+   "h": 1500.0,
+   "dT": 15.0,
+   "rho": 1.0039738399649483,
+   "rpm": 550.0,
+   "coll": 25.006169346751978,
+   "T_kN": 35.303940912790516,
+   "P_kW": 1909.4279403618057,
+   "Pav_kW": 2947.749151185248,
+   "margin": 35.22420523489755,
+   "FM": 0.7279922812536982,
+   "PL": 3.77076288023507,
+   "tipM": 0.640100500916206,
+   "stall": 0.0,
+   "sm": 1.9673244014772213,
+   "fuel_kg_h": 534.6398233013057,
+   "feasible": true
+  },
+  {
+   "case": "2000 m ISA (M2 reference)",
+   "h": 2000.0,
+   "dT": 0.0,
+   "rho": 1.0064900974626037,
+   "rpm": 550.0,
+   "coll": 24.91654630691552,
+   "T_kN": 35.303940004421854,
+   "P_kW": 1903.0914654770165,
+   "Pav_kW": 2955.13708860714,
+   "margin": 35.60056916432224,
+   "FM": 0.7295025505383209,
+   "PL": 3.7833178964917984,
+   "tipM": 0.6609811995727687,
+   "stall": 0.0,
+   "sm": 2.0391159444176985,
+   "fuel_kg_h": 532.8656103335646,
+   "feasible": true
+  }
+ ],
+ "cruise": [
+  {
+   "case": "Long-range cruise (design mission)",
+   "h": 5000.0,
+   "dT": 15.0,
+   "V": 75.0,
+   "rpm": 250.0,
+   "coll": 62.47361461356458,
+   "T_kN": 7.372362120206834,
+   "wing": 90.06622926163992,
+   "P_kW": 662.5740699739283,
+   "Pav_kW": 1755.700098901498,
+   "eta": 0.834513730724883,
+   "LDe": 7.992451319757165,
+   "J": 2.368421052631579,
+   "alpha_w": 9.936104046472863,
+   "kg_km": 0.6871138503433332,
+   "tipM": 0.3975665947052085,
+   "feasible": true,
+   "diag": "feasible trim"
+  },
+  {
+   "case": "Cruise, higher RPM",
+   "h": 5000.0,
+   "dT": 15.0,
+   "V": 85.0,
+   "rpm": 350.0,
+   "coll": 55.24772019669818,
+   "T_kN": 8.377880666213192,
+   "wing": 92.17328664920427,
+   "P_kW": 900.3704363431074,
+   "Pav_kW": 1755.700098901498,
+   "eta": 0.7909187462000933,
+   "LDe": 6.665778392698049,
+   "J": 1.9172932330827073,
+   "alpha_w": 8.025394416165001,
+   "kg_km": 0.8238683731244121,
+   "tipM": 0.5111933380503579,
+   "feasible": true,
+   "diag": "feasible trim"
+  },
+  {
+   "case": "High-speed cruise",
+   "h": 3000.0,
+   "dT": 15.0,
+   "V": 100.0,
+   "rpm": 350.0,
+   "coll": 59.86981929999026,
+   "T_kN": 12.272895385750296,
+   "wing": 96.10595203249218,
+   "P_kW": 1501.2745766972753,
+   "Pav_kW": 2174.1661789226955,
+   "eta": 0.8174983827908429,
+   "LDe": 4.70319561098101,
+   "J": 2.2556390977443614,
+   "alpha_w": 5.0900612520761905,
+   "kg_km": 1.167658004097881,
+   "tipM": 0.5137359506274239,
+   "feasible": true,
+   "diag": "feasible trim"
+  },
+  {
+   "case": "Dash",
+   "h": 3000.0,
+   "dT": 15.0,
+   "V": 110.0,
+   "rpm": 420.0,
+   "coll": 57.0084241655464,
+   "T_kN": 14.425867644505656,
+   "wing": 98.31909999699768,
+   "P_kW": 2002.2513673987883,
+   "Pav_kW": 2174.1661789226955,
+   "eta": 0.7925305816907304,
+   "LDe": 3.879066797736926,
+   "J": 2.067669172932331,
+   "alpha_w": 4.3940580836633485,
+   "kg_km": 1.4157332900799513,
+   "tipM": 0.5958429483111659,
+   "feasible": true,
+   "diag": "feasible trim"
+  }
+ ],
+ "specific_range": {
+  "250.0": {
+   "V": 60.0,
+   "kg_km": 0.62443146765218,
+   "V_max_feasible": 80.0,
+   "limit_above": "insufficient control authority: collective at its limit"
+  },
+  "300.0": {
+   "V": 60.0,
+   "kg_km": 0.6521122010326506,
+   "V_max_feasible": 100.0,
+   "limit_above": "insufficient control authority: collective at its limit"
+  },
+  "350.0": {
+   "V": 60.0,
+   "kg_km": 0.680036362955272,
+   "V_max_feasible": 110.0,
+   "limit_above": "trimmed but limited by power limitation (1746 kW required, 1756 kW available)"
+  }
+ },
+ "hover_envelope": {
+  "0.0": {
+   "alt": [
+    0.0,
+    1000.0,
+    2000.0,
+    3000.0,
+    4000.0,
+    5000.0
+   ],
+   "m_max": [
+    11000.0,
+    10320.3125,
+    9359.375,
+    8445.3125,
+    7625.0,
+    6851.5625
+   ],
+   "limit": [
+    "feasible trim",
+    "trimmed but limited by power limitation (3108 kW required, 3264 kW available)",
+    "trimmed but limited by power limitation (2819 kW required, 2955 kW available)",
+    "trimmed but limited by power limitation (2541 kW required, 2669 kW available)",
+    "trimmed but limited by power limitation (2296 kW required, 2405 kW available)",
+    "trimmed but limited by power limitation (2062 kW required, 2161 kW available)"
+   ],
+   "ceiling_m": 4549.49494949495
+  },
+  "15.0": {
+   "alt": [
+    0.0,
+    1000.0,
+    2000.0,
+    3000.0,
+    4000.0,
+    5000.0
+   ],
+   "m_max": [
+    10789.0625,
+    9781.25,
+    8843.75,
+    8000.0,
+    7203.125,
+    6453.125
+   ],
+   "limit": [
+    "trimmed but limited by power limitation (3255 kW required, 3419 kW available)",
+    "trimmed but limited by power limitation (2950 kW required, 3099 kW available)",
+    "trimmed but limited by power limitation (2666 kW required, 2802 kW available)",
+    "trimmed but limited by power limitation (2414 kW required, 2528 kW available)",
+    "trimmed but limited by power limitation (2173 kW required, 2275 kW available)",
+    "trimmed but limited by power limitation (1945 kW required, 2042 kW available)"
+   ],
+   "ceiling_m": 4004.166666666667
+  }
+ },
+ "max_speed": {
+  "MCP": {
+   "alt": [
+    0.0,
+    1500.0,
+    3000.0,
+    5000.0
+   ],
+   "V": [
+    112.34375,
+    111.640625,
+    110.9375,
+    109.53125
+   ],
+   "limit": [
+    "trimmed but limited by power limitation (2988 kW required, 3093 kW available)",
+    "trimmed but limited by power limitation (2441 kW required, 2535 kW available)",
+    "trimmed but limited by power limitation (2090 kW required, 2174 kW available)",
+    "trimmed but limited by power limitation (1683 kW required, 1756 kW available)"
+   ]
+  },
+  "take-off rating": {
+   "alt": [
+    0.0,
+    1500.0,
+    3000.0,
+    5000.0
+   ],
+   "V": [
+    119.375,
+    118.671875,
+    117.96875,
+    117.265625
+   ],
+   "limit": [
+    "trimmed but limited by power limitation (3491 kW required, 3597 kW available)",
+    "trimmed but limited by power limitation (2847 kW required, 2948 kW available)",
+    "trimmed but limited by power limitation (2433 kW required, 2528 kW available)",
+    "trimmed but limited by power limitation (1979 kW required, 2042 kW available)"
+   ]
+  }
+ },
+ "max_hover_mass_pad_kg": 9312.5
+}

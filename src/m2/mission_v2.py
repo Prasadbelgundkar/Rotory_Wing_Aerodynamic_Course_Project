@@ -211,6 +211,10 @@ class M2Segment:
                  conversion path in the speed-nacelle plane); overrides `nacelle`
       headwind   along-track headwind [m/s] (ground speed = V_h - headwind);
                  a number or a schedule of tau
+      power_rating  fraction of the take-off rating available in this segment
+                 (Milestone 3: 1.0 = take-off rating for hover / vertical /
+                 conversion, CFG.MCP_FRACTION = max-continuous for climb and
+                 cruise). Default 1.0 reproduces Milestone 2 exactly.
     Controls are not scheduled: they come from the online 6-DOF trim at every
     step (use_online_trim=True, the only mode implemented)."""
     name: str
@@ -224,6 +228,7 @@ class M2Segment:
     nacelle_of_speed: _Optional[Callable[[float], float]] = None
     headwind_mps: object = 0.0
     use_online_trim: bool = True
+    power_rating: float = 1.0
 
     def headwind(self, tau: float) -> float:
         return float(self.headwind_mps(tau)) if callable(self.headwind_mps) else float(self.headwind_mps)
@@ -319,7 +324,7 @@ class MissionPlannerV2:
             cond = TrimCondition(V_mps=V, nacelle_deg=st['nacelle'], omega_rad_s=CFG.rpm_to_omega(st['rpm']),
                                  rho=atm.density_kg_m3, a_sound=atm.speed_of_sound_mps, gamma_rad=gamma,
                                  accel_mps2=accel, altitude_m=self.h, fuel_kg=self.fuel, payload_kg=self.payload,
-                                 P_avail_per_rotor_W=CFG.POWER_MODEL.power_available_W(atm))
+                                 P_avail_per_rotor_W=seg.power_rating * CFG.POWER_MODEL.power_available_W(atm))
             tr = trim_6dof(ac, self.rotor, self.afp, cond, x0=self._x0, n_r=self.n_r, n_psi=self.n_psi)
             if tr.status in ('ok', 'ok_at_limit'):
                 self._x0 = tr.x
@@ -354,6 +359,11 @@ class MissionPlannerV2:
                 tip_mach=tr.adv_tip_mach, reverse_pct=100 * tr.reverse_flow_fraction,
                 rotor_lift_pct=100 * tr.rotor_lift_N / (m * CFG.G),
                 wing_lift_pct=100 * tr.wing_lift_N / (m * CFG.G),
+                power_rating=seg.power_rating,
+                power_margin_pct=100 * tr.power_margin_frac,
+                d_lon=tr.d_lon, d_lat=tr.d_lat, d_ped=tr.d_ped,
+                collective_margin_deg=min(tr.collective_deg - lim.collective_deg[0],
+                                          lim.collective_deg[1] - tr.collective_deg),
                 trim_status=tr.status, residual=tr.residual_norm, flags=";".join(tr.flags),
                 feasible=tr.feasible,
             )

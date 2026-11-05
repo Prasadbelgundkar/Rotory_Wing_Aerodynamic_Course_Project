@@ -33,6 +33,16 @@ Python 3.10 or newer (tested on 3.13). Any 64-bit laptop with 2+ cores and 4 GB 
 
 ## 3. Full reproduction
 
+### Milestone 3 — one command
+
+```bash
+python run_all_m3.py                   # every Milestone 3 figure and table (≈ 20 min)
+python run_all_m3.py --skip-mission    # re-plot the design mission from the saved log (≈ 10 min)
+```
+
+Results go to `outputs/m3/` (file names start with the report section, `m3_4p3_margins.md` = Section 4.3);
+captions in `outputs/m3/FIGURES.md`. The mission is defined in `inputs/m3_design_mission.json`.
+
 ### Milestone 2 — one command
 
 ```bash
@@ -114,13 +124,34 @@ python scripts/m1/plot_mission_analysis.py        # Sections 7.2-7.4 from full m
 
 ---
 
+### Milestone 3 (`outputs/m3/`)
+
+| Section | Script (`scripts/m3/`) | Outputs |
+|---|---|---|
+| 1.1 Final schematic | `plot_final_schematic.py` | `m3_1p1_final_schematic.png` |
+| 1.2 Final design table | `make_m3_tables.py` | `m3_1p2_final_design_table.md` |
+| 1.3 Changes since M2 | `make_m3_tables.py` | `m3_1p3_design_evolution.md` |
+| 1.4 Status vs M1 targets | `make_m3_tables.py` | `m3_1p4_compliance.md` |
+| 2.1 New assumptions | `make_m3_tables.py` | `m3_2p1_assumptions.md` |
+| 2 Workflow and logic flow | `plot_workflow.py` | `m3_2p2_workflow.png`; `docs/milestone3/Milestone_3_Architecture.md` |
+| 2.3 Code organisation, reproducibility | — | `README.md` (Milestone 3), `inputs/m3_design_mission.json`, `run_all_m3.py` |
+| 3.1 Hover / cruise performance | `performance_summary.py` | `m3_3p1_operating_points.md`, `m3_3p1_specific_range.png` |
+| 3.2 Conversion summary | `performance_summary.py`, `make_m3_tables.py`, `run_design_mission.py` | `m3_3p2_conversion_summary.md`, `m3_3p2_restrictive_condition.md`, `m3_4_paths_on_corridor.png` |
+| 3.3 Operating limits | `performance_summary.py` | `m3_3p3_limits_table.md`, `m3_3p3_operating_limits.png` |
+| 3.4 Comparison with tiltrotors | `make_m3_tables.py` | `m3_3p4_comparison.md`, `m3_3p4_comparison.png` |
+| 4.1 Mission definition | `run_design_mission.py` | `m3_4p1_mission_definition.md` |
+| 4.2 Mission time histories | `run_design_mission.py` | `m3_4p2_mission_time_history.png`, `m3_4p2_terminal_phases_zoom.png`, `m3_4_mission_log.csv` |
+| 4.3 Limit margins | `run_design_mission.py` | `m3_4p3_constraint_utilisation.png`, `m3_4p3_margins.md` |
+| 4.4 Power and fuel by segment | `run_design_mission.py` | `m3_4p4_segment_summary.md`, `m3_4p4_power_breakdown.png` |
+
 ## 5. Submission-requirement checklist
 
 | Requirement (assignment brief) | Where |
 |---|---|
 | README instructions | `README.md`, this guide |
 | Environment / dependency file | `requirements.txt`, `setup.bat`, `setup.sh` |
-| Aircraft configuration file | `src/aircraft_input.py` (M1), `src/m2/aircraft_input_m2.py` (M2: single source of truth) |
+| Aircraft configuration file | `src/aircraft_input.py` (M1), `src/m2/aircraft_input_m2.py` (M2: single source of truth; frozen as the M3 final design) |
+| Representative mission input (M3) | `inputs/m3_design_mission.json` |
 | Input examples | `examples/`, mission segments in `scripts/m2/demo_transition_mission.py` and `scripts/m1/mission_tests/` |
 | Validation data | `src/data/knight_hefner_*.csv` |
 | Scripts reproducing all graded plots and tables | Section 3 above (`scripts/m1/`, `scripts/m2/run_all_m2.py`) |
