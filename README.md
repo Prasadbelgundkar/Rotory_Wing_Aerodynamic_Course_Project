@@ -1,4 +1,9 @@
-# Rotary-Wing Modelling Project, Team 6 — Tiltrotor BEMT + Mission Planner (Milestones 1 & 2) + Modeling Project
+# Rotary-Wing Modelling Project, Team 6 — Tiltrotor BEMT + Mission Planner (Milestones 1, 2 & 3) + Modeling Project
+
+> **Milestone 3 (final design + end-to-end mission) — TAs start here:** `python run_all_m3.py` from the
+> repository root regenerates every Milestone 3 figure and table (≈ 20 min; `--skip-mission` re-plots the
+> mission from the saved log in ≈ 10 min) into `outputs/m3/`, with a caption index in `outputs/m3/FIGURES.md`.
+> Workflow and logic flow: [`docs/milestone3/Milestone_3_Architecture.md`](docs/milestone3/Milestone_3_Architecture.md).
 
 > **Modeling Project (tandem-rotor interference) — TAs start here:** `python run_all_mp.py` from the
 > repository root regenerates every figure, table and validation result in the Modeling Project deck
@@ -17,10 +22,12 @@ airplane-mode flight.
 > **TAs / evaluators: start with [`EVALUATION_GUIDE.md`](EVALUATION_GUIDE.md)** — setup, a 5-minute check,
 > full reproduction commands, and where the figures and tables for every report section come from.
 
+<!--
 > **Bonus — 3D transition simulation.** The file to run is
 > **`bonus_simulation_transition_analysis/run_transition_simulation.py`**; it writes an interactive 3D animation
 > of the hover → airplane conversion to `bonus_simulation_transition_analysis/output/`. See
 > [Bonus — 3D transition simulation](#bonus--3d-transition-simulation) below.
+-->
 
 ---
 
@@ -29,17 +36,21 @@ airplane-mode flight.
 ```
 .
 ├── EVALUATION_GUIDE.md     how to evaluate: setup, quick check, reproduction, report-section map
+├── run_all_m3.py           Milestone 3: ONE command for every final-design / mission figure and table
+├── inputs/                 Milestone 3: design-mission input file (m3_design_mission.json)
 ├── run_all_mp.py           Modeling Project: ONE command for every deck figure and validation result
 ├── modeling_project/       Modeling Project: slide deck, conceptual questions, docs, TA guide (README.md)
 ├── src/                    solver library (imported by every script)
 │   ├── *.py                Milestone 1: ISA, airfoil, rotor, axial BEMT, mission planner v1, sizing
 │   ├── tandem_*.py         Modeling Project: tandem interference (hover, forward flight, free-vortex wake)
 │   ├── data/               Knight & Hefner and Dingeldein TN-3236 validation data, airfoil tables, cached FVW runs
-│   └── m2/                 Milestone 2: edgewise BEMT, frames, airframe aero, 6-DOF trim, corridor, mission v2
+│   ├── m2/                 Milestone 2: edgewise BEMT, frames, airframe aero, 6-DOF trim, corridor, mission v2
+│   └── m3/                 Milestone 3: design-mission builder / margins, requirements and reference data
 ├── scripts/
 │   ├── m1/                 Milestone 1 figure scripts (hover, axial flight, design study, mission v1)
 │   │   └── mission_tests/  Mission Planner v1 evaluation cases
 │   ├── m2/                 Milestone 2 figure/table scripts (run_all_m2.py runs everything)
+│   ├── m3/                 Milestone 3 figure/table scripts (run_all_m3.py runs everything)
 │   └── mp/                 Modeling Project figure scripts (run_all_mp.py runs everything)
 ├── bonus_simulation_transition_analysis/
 │   ├── run_transition_simulation.py   ← RUN THIS for the bonus 3D transition simulation
@@ -47,6 +58,7 @@ airplane-mode flight.
 ├── outputs/
 │   ├── m1/                 Milestone 1 figures
 │   ├── m2/rotor_<variant>/ Milestone 2 figures, tables and FIGURES.md index per rotor variant
+│   ├── m3/                 Milestone 3 figures, tables, mission log and FIGURES.md index
 │   └── mp/                 Modeling Project figures and tables
 ├── tests/                  pytest suite (M1 solver + M2 regression tests)
 ├── examples/               short usage examples of the solver API
@@ -54,7 +66,8 @@ airplane-mode flight.
 ├── docs/
 │   ├── milestone1/         formulas, flow diagrams, validation/sizing reports
 │   │   └── reports/        Milestone 1 analysis write-ups (Sections 6–7)
-│   └── milestone2/         Milestone 2 algorithms and logic flow
+│   ├── milestone2/         Milestone 2 algorithms and logic flow
+│   └── milestone3/         Milestone 3 integrated workflow and logic flow
 ├── requirements.txt
 └── setup.bat / setup.sh    install the requirements (Windows / macOS-Linux)
 ```
@@ -172,6 +185,38 @@ Full description: [`docs/milestone2/Milestone_2_Architecture.md`](docs/milestone
 
 ---
 
+## Milestone 3 — final design and end-to-end mission
+
+No new aerodynamic model: the final aircraft is the **frozen Milestone 2 configuration**
+(`src/m2/aircraft_input_m2.py`, rotor `refined`, 2 × GE CT7-8A) and the Milestone 1–2 tools are used together.
+
+```bash
+python run_all_m3.py                                   # every M3 figure and table (≈ 20 min)
+python run_all_m3.py --skip-mission                    # re-plot the mission from outputs/m3/m3_4_mission_log.csv
+python scripts/m3/run_design_mission.py --mission inputs/my_mission.json   # fly any other mission
+```
+
+| Script (`scripts/m3/`) | Report section | Output (`outputs/m3/`) |
+|---|---|---|
+| `plot_final_schematic.py` | 1.1 | final schematic with gear, cabin, tanks, engines, component-location table |
+| `plot_workflow.py` | 2.2 | integrated workflow diagram (module origin M1 / M2 / M3) |
+| `performance_summary.py` | 3.1–3.3 | hover / cruise operating points, fuel per km, max hover mass and ceiling, max speed, limits table, conversion summary |
+| `run_design_mission.py` | 4.1–4.4 (+3.2) | mission definition, time histories, constraint utilisation and minimum margins, segment summary, path on the M2 corridor |
+| `make_m3_tables.py` | 1.2–1.4, 2.1, 3.2, 3.4 | design table, changes after M2, status vs the M1 targets, new assumptions, tightest transition constraint, comparison with XV-15 / AW609 / V-22 |
+
+| Module | Content |
+|---|---|
+| `inputs/m3_design_mission.json` | the design mission (user input): pads, ISA deviation, wind, payload, fuel, reserve, range, climb / cruise / descent, conversion schedule, engine ratings, time steps |
+| `src/m3/design_mission.py` | JSON → Mission Planner v2 segments; climb, cruise and vertical-descent durations sized at run time so the mission reaches the cruise altitude, flies the specified range and lands on the pad; constraint utilisation, minimum-margin and segment tables |
+| `src/m3/final_design.py` | requirements (from `src/aircraft_input.py`), changes after M2, new assumptions, published reference-aircraft data |
+| `src/m2/mission_v2.py` | M3 addition (backward compatible): per-segment `power_rating` (take-off vs max-continuous; default 1.0 = M2) and extra log fields (stick inputs, collective and power margins) |
+
+**Design mission result:** 10 passengers over 1000 km between 1500 m ISA+15 pads, cruising at 5000 m, 75 m/s
+and 250 RPM. Flight time is 4.09 h with **0 limit violations**; 677 kg of fuel remains at landing against a
+450 kg reserve. The minimum margin is the collective in the 250 RPM cruise (3.9 %); in transition the closest
+limit is the advancing-tip Mach (8 % margin).
+
+<!-- Bonus section hidden (simulation still available in bonus_simulation_transition_analysis/)
 ## Bonus — 3D transition simulation
 
 **File to run:** `bonus_simulation_transition_analysis/run_transition_simulation.py` (from the repository root,
@@ -198,6 +243,8 @@ It does not solve anything itself: it replays the trimmed 6-DOF mission of Secti
 (`outputs/m2/rotor_<variant>/m2_8_<leg>_log.csv`, written by `scripts/m2/demo_transition_mission.py`; the logs
 are committed, so no re-run is needed). Geometry is taken from `src/m2/aircraft_input_m2.py` and matches the
 Section 5.1 schematic. Plot axes: x forward, y left, z up. The rotor variant follows `M2_ROTOR` as above.
+
+-->
 
 ---
 
